@@ -1,4 +1,4 @@
-# Readme Generator
+# Employee Tracker
  ## Table of Contents
  - [Description](#description)
  - [Installation](#installation)
@@ -8,11 +8,11 @@
  - [Questions](#questions)
  - [Tests](#tests)
   ## Description
-  ### This command line application is intended to make the Readme Generation process quick and easy. It will give you prompts in the command line, which you can then answer and your Readme will be generated accordingly. You can find the demo at the following link: https://youtu.be/3j7NOZjbfhE
+  ### This is a command line application designed to allow a company to better organize and keep track of all their employees, roles, departments, etc. You can find the demo at the following link: https://youtu.be/cKOEgnhS8Fg
   ## Installation
-  ### You can download these files on GitHub in order to run this command line application
+  ### You will need to clone this repo and run the proper installation procedures for the npm packages in your terminal instance.
   ## Usage
-  ### Use this to generate Readme files for your next project.
+  ### 
  
   ## Contribution
   ### Contribute to this, expand upon it, and format it however you would like.
