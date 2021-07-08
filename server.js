@@ -109,11 +109,6 @@ const viewDepartments = () => {
 const addDepartments = () => {
     inquirer.prompt([
         {
-            name: "id",
-            type: "input",
-            message: "Department ID:",
-        },
-        {
             name: "departmentName",
             type: "input",
             message: "Department Name:",
@@ -123,7 +118,6 @@ const addDepartments = () => {
 connection.query(
     'INSERT INTO department SET ?',
     {
-        id: answer.id,
         departmentName: answer.departmentName
     },
     (err) => {
@@ -138,11 +132,6 @@ connection.query(
 //Adds Roles
 const addRoles = () => {
     inquirer.prompt([
-        {
-            name: "id",
-            type: "input",
-            message: "Role ID:",
-        },
         {
             name: "title",
             type: "input",
@@ -163,7 +152,6 @@ const addRoles = () => {
 connection.query(
     'INSERT INTO role SET ?',
     {
-        id: answer.id,
         title: answer.title,
         salary: answer.salary,
         department_id: answer.departmentId
@@ -179,11 +167,6 @@ connection.query(
 //Adds Employees
 const addEmployees = () => {
     inquirer.prompt([
-        {
-            name: "id",
-            type: "input",
-            message: "Emplyee ID:",
-        },
         {
             name: "firstName",
             type: "input",
@@ -209,7 +192,6 @@ const addEmployees = () => {
 connection.query(
     'INSERT INTO employee SET ?',
     {
-        id: answer.id,
         first_name: answer.firstName,
         last_name: answer.lastName,
         role_id: answer.roleId,
@@ -223,6 +205,36 @@ connection.query(
    );
  });
 };
+
+const updateRoles = () => {
+    inquirer.prompt([
+        {
+            name: "id",
+            type: "input",
+            message: "Employee ID:",
+        },
+        {
+            name: "newRole",
+            type: "input",
+            message: "New Role ID:",
+        },
+
+    ])
+    .then((answer) => {
+        connection.query(
+            'UPDATE employee SET role_id=? WHERE id=?',
+            {
+                id: answer.id,
+                role_id: answer.roleId
+            },
+            (err) => {
+                if (err) throw err;
+                console.log('You have successfully updated an employee role.')
+                start();
+            }
+           );
+         });
+}
 
 connection.connect((err) => {
     if (err) throw err;
