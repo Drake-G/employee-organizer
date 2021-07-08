@@ -5,7 +5,7 @@
 const mysql = require('mysql');
 const inquirer = require('inquirer');
 const express = require('express');
-// const sequelize = require('./config/connection');
+// const connection = require('./config/connection');
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -60,13 +60,25 @@ const start = () => {
             case 'Update Employee Roles':
                 updateRoles();
                 break;
+            case 'EXIT':
+                connection.end()
+                break;
             default:
                 console.log("Sorry, that command is not recognized")
 
         }
     })
-    // connection.end()
+    
 };
+
+// const viewEmployees = () => {
+//     connection.query('SELECT * FROM employee INNER JOIN role ON employee.role_id=role.title;', (err, res) => {
+//         if (err) throw err;
+
+//         console.table(res);
+//         start();
+//         });
+// };
 
 const viewEmployees = () => {
     connection.query('SELECT * FROM employee', (err, res) => {
@@ -86,7 +98,6 @@ const viewRoles = () => {
         });
 };
 
-
 const viewDepartments = () => {
     connection.query('SELECT * FROM department', (err, res) => {
         if (err) throw err;
@@ -95,15 +106,6 @@ const viewDepartments = () => {
         start();
         });
 };
-
-
-
-
-
-
-
-
-
 
 //Adds Departments
 const addDepartments = () => {
@@ -118,7 +120,7 @@ const addDepartments = () => {
 connection.query(
     'INSERT INTO department SET ?',
     {
-        departmentName: answer.departmentName
+        department_name: answer.departmentName
     },
     (err) => {
         if (err) throw err;
@@ -223,10 +225,7 @@ const updateRoles = () => {
     .then((answer) => {
         connection.query(
             'UPDATE employee SET role_id=? WHERE id=?',
-            {
-                id: answer.id,
-                role_id: answer.roleId
-            },
+            [answer.newRole, answer.id],
             (err) => {
                 if (err) throw err;
                 console.log('You have successfully updated an employee role.')
